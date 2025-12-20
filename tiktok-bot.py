@@ -42,7 +42,7 @@ try:
         print('Out of range')
         sys.exit()
 except:
-    print('Invalid ')
+    print('Invalid')
     sys.exit()
 selected = services[idx-1]
 video_link = input('Enter video link: ')
