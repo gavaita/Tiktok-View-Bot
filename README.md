@@ -23,7 +23,7 @@ python3 Tiktok-Bot
 <p>A brain...</p>
 
 <p align="center">
-  <img src="https://via.placeholder.com/800x300.png?text=Tiktok+View+Bot" alt="Tiktok View Bot Banner">
+  <img src="508757379-b7c17eef-9420-4b44-9ce2-e62761c20e9e.png">
 </p>
 
 <h2>Contribution</h2>
