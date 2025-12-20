@@ -1,7 +1,7 @@
 <h1>Tiktok View Bot</h1>
 
 <h3>Star goal:</h3>
-<p>⭐ 100 Stars – Make it app</p>
+<p>⭐ 250 Stars – Make it app</p>
 
 <h2>Installation & Usage</h2>
 <pre>
