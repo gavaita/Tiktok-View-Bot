@@ -3,7 +3,7 @@
 <h3>Star goal:</h3>
 <p>⭐ 50 Stars – Be happy</p>
 
-<h2>Installation & Usage</h2>
+<h1>Installation & Usage</h1>
 <pre>
 <code>
 git clone https://github.com/gavaita/Tiktok-View-Bot
@@ -31,3 +31,6 @@ Your Tiktok account can't be banned with this.
 <p>https://github.com/AdamBankz</p>
 
 I am not responsible for anything anyone may do with this program.
+
+
+**Usage**
