@@ -1,7 +1,7 @@
 <h1>Tiktok View Bot</h1>
 
 <h3>Star goal:</h3>
-<p>⭐ 250 Stars – Be happy</p>
+<p>⭐ 50 Stars – Be happy</p>
 
 <h2>Installation & Usage</h2>
 <pre>
