@@ -29,3 +29,5 @@ Your Tiktok account can't be banned with this.
 
 <h2>Contribution</h2>
 <p>https://github.com/AdamBankz</p>
+
+I am not responsible for anything anyone may do with this program.
