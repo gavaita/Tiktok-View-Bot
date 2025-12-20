@@ -15,7 +15,7 @@ pip install -r requirements.txt
 <h2>Usage</h2>
 <pre>
 <code>
-python3 Tiktok-Bot
+python3 tiktok-bot
 </code>
 </pre>
 
