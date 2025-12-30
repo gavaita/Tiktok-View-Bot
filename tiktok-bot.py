@@ -10,7 +10,23 @@ def signal_a(sig, frame):
 signal.signal(signal.SIGINT, signal_a)
 os.system('cls' if os.name=='nt' else 'clear')
 init(autoreset=True)
-API="https://zefame-free.com/api_free.php?action=config"
+
+API = "https://zefame-free.com/api_free.php?action=config"
+
+headers = {
+    "User-Agent": "Mozilla/5.0",
+    "Accept": "application/json"
+}
+
+def safe_json(req):
+    try:
+        return req.json()
+    except Exception:
+        print(f"{Fore.RED}The API did not return valid JSON{Style.RESET_ALL}")
+        print("Real answer:")
+        print(req.text[:500])
+        sys.exit()
+
 names = {
     229: "TikTok Views",
     228: "TikTok Followers",
@@ -18,24 +34,33 @@ names = {
     235: "TikTok Shares",
     236: "TikTok Favorites"
 }
+
 if len(sys.argv) > 1:
     with open(sys.argv[1]) as f:
         data = json.load(f)
 else:
-    data = requests.get("https://zefame-free.com/api_free.php?action=config").json()
+    r = requests.get(API, headers=headers)
+    if r.status_code != 200:
+        print("Error HTTP:", r.status_code)
+        sys.exit()
+    data = safe_json(r)
+
 services = data.get('data', {}).get('tiktok', {}).get('services', [])
 for i, service in enumerate(services, 1):
     sid = service.get('id')
     name = names.get(sid, service.get('name', '').strip())
     rate = service.get('description', '').strip()
     if rate:
-        rate = f"[{rate.replace('vues', 'views').replace('partages', 'shares').replace('favoris', 'favorites')}]"
+        rate = f"[{rate.replace('vues','views').replace('partages','shares').replace('favoris','favorites')}]"
     status = f"{Fore.GREEN}[WORKING]{Style.RESET_ALL}" if service.get('available') else f"{Fore.RED}[DOWN]{Style.RESET_ALL}"
     print(f"{i}. {name}  -  {status}  {Fore.CYAN}{rate}{Style.RESET_ALL}")
+
 print(f"{Fore.GREEN}Modified By Gavaita{Style.RESET_ALL}")
+
 choice = input('Select number (Enter or 0 to exit): ').strip()
 if not choice or choice == "0":
     sys.exit()
+
 try:
     idx = int(choice)
     if idx < 1 or idx > len(services):
@@ -44,17 +69,38 @@ try:
 except:
     print('Invalid')
     sys.exit()
+
 selected = services[idx-1]
+
 video_link = input('Enter video link: ')
-id_check = requests.post("https://zefame-free.com/api_free.php?", data={"action": "checkVideoId", "link": video_link})
-video_id = id_check.json().get("data", {}).get("videoId")
+
+id_check = requests.post(
+    "https://zefame-free.com/api_free.php",
+    data={"action": "checkVideoId", "link": video_link},
+    headers=headers
+)
+
+id_json = safe_json(id_check)
+video_id = id_json.get("data", {}).get("videoId")
 print("Parsed Video ID:", video_id)
 print()
-print(f"{Fore.YELLOW}[i] Presiona Ctrl+C para detener{Style.RESET_ALL}\n")
+print(f"{Fore.YELLOW}[i] Press Ctrl+C to stop{Style.RESET_ALL}\n")
+
 while True:
-    order = requests.post("https://zefame-free.com/api_free.php?action=order", data={"service": selected.get('id'), "link": video_link, "uuid": str(uuid.uuid4()), "videoId": video_id})
-    result = order.json()
+    order = requests.post(
+        "https://zefame-free.com/api_free.php?action=order",
+        data={
+            "service": selected.get('id'),
+            "link": video_link,
+            "uuid": str(uuid.uuid4()),
+            "videoId": video_id
+        },
+        headers=headers
+    )
+
+    result = safe_json(order)
     print(f"{Fore.GREEN}{json.dumps(result, separators=(',',':'))}{Style.RESET_ALL}")
+
     wait = result.get("data", {}).get("nextAvailable")
     if wait:
         try:
